@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.sample.userstory.ui.login.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_login_to_dashboard"
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.sample.userstory.ui.dashboard.DashboardFragment"
+        android:label="DashboardFragment">
+        <action
+            android:id="@+id/action_dashboard_to_detail"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.sample.userstory.ui.detail.DetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="storyUrl"
+            app:argType="string" />
+    </fragment>
+</navigation>
