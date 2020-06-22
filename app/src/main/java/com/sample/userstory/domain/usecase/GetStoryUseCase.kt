@@ -10,8 +10,8 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class GetStoryUseCase @Inject constructor(val repository: StoryRepository) {
-    operator fun invoke(disposable: CompositeDisposable): Observable<PagedList<Story>> {
-        val dataSourceFactory = StoryDataSourceFactory(repository, disposable)
+    operator fun invoke(disposable: CompositeDisposable, onError: (String?) -> Unit): Observable<PagedList<Story>> {
+        val dataSourceFactory = StoryDataSourceFactory(repository, disposable, onError)
         val config = PagedList.Config.Builder().setEnablePlaceholders(false)
             .setPageSize(20).build();
         return RxPagedListBuilder(dataSourceFactory, config).buildObservable()

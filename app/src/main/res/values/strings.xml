@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UserStory</string>
+    <string name="app_name">Hacking News</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="get_login">Get Login</string>

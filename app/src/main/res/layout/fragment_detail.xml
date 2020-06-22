@@ -16,6 +16,7 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
+            android:padding="10dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

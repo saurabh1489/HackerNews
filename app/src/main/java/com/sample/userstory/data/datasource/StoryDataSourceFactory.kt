@@ -9,14 +9,15 @@ import javax.inject.Inject
 
 class StoryDataSourceFactory @Inject constructor(
     private val repository: StoryRepository,
-    private val disposable: CompositeDisposable
+    private val disposable: CompositeDisposable,
+    private val onError: (String?) -> Unit
 ) : DataSource.Factory<Int, Story>() {
 
     val sourceLiveData = MutableLiveData<StoryDataSource>()
     var latestSource: StoryDataSource? = null
 
     override fun create(): DataSource<Int, Story> {
-        latestSource = StoryDataSource(repository, disposable)
+        latestSource = StoryDataSource(repository, disposable, onError)
         sourceLiveData.postValue(latestSource)
         return latestSource as DataSource<Int, Story>
     }
