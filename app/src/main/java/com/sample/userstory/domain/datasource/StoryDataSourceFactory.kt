@@ -1,4 +1,4 @@
-package com.sample.userstory.data.datasource
+package com.sample.userstory.domain.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource

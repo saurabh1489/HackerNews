@@ -1,20 +1,10 @@
 package com.sample.userstory.data.repository
 
-import android.text.method.SingleLineTransformationMethod
-import android.util.Log
-import androidx.paging.PagedList
-import androidx.paging.RxPagedListBuilder
-import androidx.paging.toLiveData
 import com.sample.userstory.data.api.NewsService
-import com.sample.userstory.data.datasource.StoryDataSourceFactory
 import com.sample.userstory.data.db.StoryDao
 import com.sample.userstory.data.entities.StoryEntity
-import com.sample.userstory.data.entities.StorySchema
 import com.sample.userstory.ui.vo.Story
-import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -30,7 +20,6 @@ class StoryRepositoryImpl @Inject constructor(
     }
 
     override fun getStoryRange(startPos: Int, pageSize: Int): Single<List<Story>> {
-        Log.d("StoryRepositoryImpl", "getStoryRange $startPos $pageSize")
         val storyIds = getStoryIdByRange(startPos, pageSize)
         return storyIds.toFlowable()
             .flatMapIterable {
@@ -45,8 +34,7 @@ class StoryRepositoryImpl @Inject constructor(
             .toList()
     }
 
-    override fun fetchAndPeristStories(): Single<Int> {
-        Log.d("StoryRepositoryImpl", "fetchAndPeristStories")
+    override fun fetchAndPersistStories(): Single<Int> {
         return service.getTopStories()
             .toObservable()
             .flatMapIterable { it }
@@ -56,7 +44,8 @@ class StoryRepositoryImpl @Inject constructor(
             .toList()
             .flatMap {
                 dao.insert(it)
-                Single.just(it.size)
+            }.map {
+                it.size
             }
     }
 

@@ -2,7 +2,7 @@ package com.sample.userstory.domain.usecase
 
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
-import com.sample.userstory.data.datasource.StoryDataSourceFactory
+import com.sample.userstory.domain.datasource.StoryDataSourceFactory
 import com.sample.userstory.data.repository.StoryRepository
 import com.sample.userstory.ui.vo.Story
 import io.reactivex.Observable

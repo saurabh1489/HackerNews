@@ -15,7 +15,7 @@ abstract class StoryDao {
     abstract fun getAllStories(): DataSource.Factory<Int, StoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(storyEntity: List<StoryEntity>): Completable
+    abstract fun insert(storyEntity: List<StoryEntity>): Single<List<Long>>
 
     @Query("SELECT * FROM Story LIMIT :pageSize OFFSET :startPos")
     abstract fun getStories(startPos: Int, pageSize: Int): Single<List<StoryEntity>>

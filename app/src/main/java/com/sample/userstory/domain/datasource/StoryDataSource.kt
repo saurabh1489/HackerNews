@@ -1,4 +1,4 @@
-package com.sample.userstory.data.datasource
+package com.sample.userstory.domain.datasource
 
 import android.util.Log
 import androidx.paging.PositionalDataSource
@@ -19,13 +19,11 @@ class StoryDataSource(
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Story>) {
         val startPos = params.startPosition
-        Log.d("StoryDataSource", "loadRange : $startPos")
         val subscription = repository.getStoryRange(startPos, pageSize)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 callback.onResult(it)
             }, {
-                Log.d("StoryDataSource", "Exception while loading data ${it.message}")
                 onError(it.message)
             })
         disposable.add(subscription)
@@ -37,8 +35,7 @@ class StoryDataSource(
     ) {
         val startPos = params.requestedStartPosition
         pageSize = params.pageSize
-        Log.d("StoryDataSource", "loadInitial : $startPos , $pageSize")
-        val allStories = repository.fetchAndPeristStories()
+        val allStories = repository.fetchAndPersistStories()
         val subscription = allStories.flatMap {
             Single.zip<Int, List<Story>, Pair<Int, List<Story>>>(
                 Single.just(it),
@@ -51,7 +48,6 @@ class StoryDataSource(
             .subscribe({
                 callback.onResult(it.second, 0)
             }, {
-                Log.d("StoryDataSource", "Exception while loading initial data ${it.message}")
                 onError(it.message)
             })
         disposable.add(subscription)

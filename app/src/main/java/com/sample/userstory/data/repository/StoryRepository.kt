@@ -11,5 +11,5 @@ import io.reactivex.Single
 interface StoryRepository {
     fun getStory(storyId: Int): Single<Story>
     fun getStoryRange(startPos: Int, pageSize: Int): Single<List<Story>>
-    fun fetchAndPeristStories(): Single<Int>
+    fun fetchAndPersistStories(): Single<Int>
 }
